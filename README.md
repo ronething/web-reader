@@ -25,3 +25,10 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 `epubjs` 核心工作原理
 
 ![](https://i.loli.net/2018/12/27/5c243d1fd3a84.png)
+
+`transition` 动画原理
+
+![](https://i.loli.net/2018/12/27/5c246e13d82e5.png)
+
+![](https://i.loli.net/2018/12/27/5c246e1ca39d6.png)
+
