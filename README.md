@@ -32,3 +32,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ![](https://i.loli.net/2018/12/27/5c246e1ca39d6.png)
 
+---
+
+通过 [`epubcfi`](http://www.idpf.org/epub/linking/cfi/epub-cfi.html) 定位
+
+![](https://i.loli.net/2018/12/27/5c24e13635e1f.png)
