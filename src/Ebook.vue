@@ -14,6 +14,9 @@
       :fontSizeList="fontSizeList"
       :defaultFontSize="defaultFontSize"
       @setFontSize="setFontSize"
+      :themeList="themeList"
+      :defaultTheme="defaultTheme"
+      @setTheme="setTheme"
       ref="menuBar"
     ></menu-bar>
   </div>
@@ -38,7 +41,46 @@ export default {
         { fontSize: 22 },
         { fontSize: 24 }
       ],
-      defaultFontSize: 16
+      defaultFontSize: 16,
+      themeList: [
+        {
+          name: "default",
+          style: {
+            body: {
+              color: "#000",
+              background: "#fff"
+            }
+          }
+        },
+        {
+          name: "eye",
+          style: {
+            body: {
+              color: "#000",
+              background: "#ceeaba"
+            }
+          }
+        },
+        {
+          name: "night",
+          style: {
+            body: {
+              color: "#fff",
+              background: "#000"
+            }
+          }
+        },
+        {
+          name: "gold",
+          style: {
+            body: {
+              color: "#000",
+              background: "rgb(241,236,226)"
+            }
+          }
+        }
+      ],
+      defaultTheme: 0
     };
   },
   computed: {},
@@ -58,6 +100,8 @@ export default {
       this.rendition.display();
       this.themes = this.rendition.themes;
       this.setFontSize(this.defaultFontSize);
+      this.registerTheme();
+      this.setTheme(this.defaultTheme);
     },
     // 上一页
     prevPage() {
@@ -81,6 +125,15 @@ export default {
       if (this.themes) {
         this.themes.fontSize(fontSize + "px");
       }
+    },
+    registerTheme() {
+      this.themeList.forEach(theme => {
+        this.themes.register(theme.name, theme.style);
+      });
+    },
+    setTheme(index) {
+      this.themes.select(this.themeList[index].name);
+      this.defaultTheme = index;
     }
   },
   components: {
