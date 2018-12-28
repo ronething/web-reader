@@ -8,7 +8,7 @@
         v-show="ifTitleAndMenuShow"
       >
         <div class="icon-wrapper">
-          <span class="icon-menu icon"></span>
+          <span class="icon-menu icon" @click="showSetting(3)"></span>
         </div>
         <div class="icon-wrapper">
           <span class="icon-progress icon" @click="showSetting(2)"></span>
@@ -82,10 +82,21 @@
         </div>
       </div>
     </transition>
+    <content-view
+      :ifShowContent="ifShowContent"
+      v-show="ifShowContent"
+      :navigation="navigation"
+      :bookAvailable="bookAvailable"
+      @jumpTo="jumpTo"
+    ></content-view>
+    <transition name="fade">
+      <div class="content-mask" v-show="ifShowContent" @click="hideContent"></div>
+    </transition>
   </div>
 </template>
 
 <script>
+import ContentView from "@/components/Content";
 export default {
   props: {
     ifTitleAndMenuShow: {
@@ -99,13 +110,15 @@ export default {
     bookAvailable: {
       type: Boolean,
       default: false
-    }
+    },
+    navigation: Object
   },
   data() {
     return {
       ifSettingShow: false,
       showTag: 0,
-      progress: 0
+      progress: 0,
+      ifShowContent: false
     };
   },
   computed: {},
@@ -114,8 +127,13 @@ export default {
   watch: {},
   methods: {
     showSetting(tag) {
-      this.ifSettingShow = true;
       this.showTag = tag;
+      if (this.showTag === 3) {
+        this.ifSettingShow = false;
+        this.ifShowContent = true;
+      } else {
+        this.ifSettingShow = true;
+      }
     },
     hideSetting() {
       this.ifSettingShow = false;
@@ -134,9 +152,17 @@ export default {
     },
     onProgressChange(progress) {
       this.$emit("onProgressChange", progress);
+    },
+    hideContent() {
+      this.ifShowContent = false;
+    },
+    jumpTo(target) {
+      this.$emit("jumpTo", target);
     }
   },
-  components: {}
+  components: {
+    ContentView
+  }
 };
 </script>
 
@@ -301,6 +327,16 @@ export default {
         text-align: center;
       }
     }
+  }
+  .content-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 101;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: rgba(51, 51, 51, 0.8);
   }
 }
 </style>

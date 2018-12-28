@@ -37,3 +37,11 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 通过 [`epubcfi`](http://www.idpf.org/epub/linking/cfi/epub-cfi.html) 定位
 
 ![](https://i.loli.net/2018/12/27/5c24e13635e1f.png)
+
+---
+
+最终效果
+
+![](https://i.loli.net/2018/12/28/5c259a0a53c64.png)
+
+![](https://i.loli.net/2018/12/28/5c259a40e4d13.png)

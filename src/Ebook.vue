@@ -19,6 +19,8 @@
       @setTheme="setTheme"
       :bookAvailable="bookAvailable"
       @onProgressChange="onProgressChange"
+      :navigation="navigation"
+      @jumpTo="jumpTo"
       ref="menuBar"
     ></menu-bar>
   </div>
@@ -83,7 +85,8 @@ export default {
         }
       ],
       defaultTheme: 0,
-      bookAvailable: false
+      bookAvailable: false,
+      navigation: {}
     };
   },
   computed: {},
@@ -107,6 +110,7 @@ export default {
       this.setTheme(this.defaultTheme);
       this.book.ready
         .then(() => {
+          this.navigation = this.book.navigation;
           return this.book.locations.generate();
         })
         .then(result => {
@@ -131,6 +135,11 @@ export default {
         this.$refs.menuBar.hideSetting();
       }
     },
+    hideTitleAndMenu() {
+      this.ifTitleAndMenuShow = false;
+      this.$refs.menuBar.hideSetting();
+      this.$refs.menuBar.hideContent();
+    },
     setFontSize(fontSize) {
       this.defaultFontSize = fontSize;
       if (this.themes) {
@@ -152,6 +161,11 @@ export default {
       const location =
         percentage > 0 ? this.locations.cfiFromPercentage(percentage) : 0;
       this.rendition.display(location);
+    },
+    // 根据 href 跳转到指定目录位置
+    jumpTo(href) {
+      this.rendition.display(href);
+      this.hideTitleAndMenu();
     }
   },
   components: {
